@@ -1,0 +1,5 @@
+toro_api:
+    resources:
+        api_user:
+            classes:
+                model: "%sylius.model.admin_user.class%"
