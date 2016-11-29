@@ -23,7 +23,7 @@ class ClientType extends AbstractResourceType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'toro_api_client';
     }

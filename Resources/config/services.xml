@@ -6,5 +6,11 @@
             <argument type="service" id="fos_oauth_server.entity_manager" />
             <argument>%fos_oauth_server.model.client.class%</argument>
         </service>
+
+        <service id="sylius.form.type.client" class="Toro\Bundle\ApiBundle\Form\Type\ClientType">
+            <argument>%sylius.model.api_client.class%</argument>
+            <argument type="collection"><argument>sylius</argument></argument>
+            <tag name="form.type" />
+        </service>
     </services>
 </container>
