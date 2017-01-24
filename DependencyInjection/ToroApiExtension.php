@@ -5,9 +5,12 @@ namespace Toro\Bundle\ApiBundle\DependencyInjection;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
+use Toro\Bundle\ApiBundle\Controller\TokenController;
 
 class ToroApiExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
@@ -21,13 +24,12 @@ class ToroApiExtension extends AbstractResourceExtension implements PrependExten
 
         $this->registerResources('sylius', $config['driver'], $config['resources'], $container);
 
-        $configFiles = [
-            'services.xml',
-        ];
+        $loader->load('services.xml');
 
-        foreach ($configFiles as $configFile) {
-            $loader->load($configFile);
-        }
+        $container->setDefinition('fos_oauth_server.controller.token', new Definition(TokenController::class, [
+            new Reference('fos_oauth_server.server'),
+            new Reference('fos_rest.decoder_provider'),
+        ]));
     }
 
     /**
