@@ -3,3 +3,10 @@ toro_api:
         api_user:
             classes:
                 model: "%sylius.model.admin_user.class%"
+
+jms_serializer:
+    metadata:
+        directories:
+            Hateoas:
+                namespace_prefix: "Hateoas\\Representation"
+                path: "@ToroApiBundle/Serializer/Hateoas"
